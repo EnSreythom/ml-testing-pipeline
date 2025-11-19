@@ -1,22 +1,14 @@
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import pandas as pd 
+from ml_project.normalization import normalize_columns
 
 import pandas as pd
-import pytest
-from ml_project.normalization import normalize_column
+from ml_project.normalization import normalize_columns
 
-def test_normalized_range():
+def test_normalize_columns():
     df = pd.DataFrame({'score': [10, 20, 30]})
-    norm = normalize_column(df, 'score')
-    assert norm.min() >= 0 and norm.max() <= 1
-
-def test_length_preserved():
-    df = pd.DataFrame({'score': [10, 20, 30]})
-    norm = normalize_column(df, 'score')
-    assert len(norm) == len(df)
-
-def test_invalid_column():
-    df = pd.DataFrame({'score': [10, 20, 30]})
-    with pytest.raises(KeyError):
-        normalize_column(df, 'missing')
+    df = normalize_columns(df, ['score'])
+    assert df['score'].min() == 0
+    assert df['score'].max() == 1

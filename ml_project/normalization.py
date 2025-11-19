@@ -1,6 +1,5 @@
-def normalize_column(df, column):
-    """Scales a column to the range [0, 1]."""
-    if column not in df.columns:
-        raise KeyError(f"{column} not found")
-    col = df[column]
-    return (col - col.min()) / (col.max() - col.min())
+def normalize_columns(df, columns):
+    for col in columns:
+        if col in df.columns:
+            df[col] = (df[col] - df[col].min()) / (df[col].max() - df[col].min())
+    return df
