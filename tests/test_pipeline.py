@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from ml_project.pipeline import load_data, train_model, evaluate_model
 
 def test_load_data():
